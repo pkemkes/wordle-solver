@@ -11,6 +11,7 @@ class LetterResult(Enum):
     GREEN = 2
     YELLOW = 1
     GREY = 0
+
     def __lt__(self, other):
         if self.__class__ is other.__class__:
             return self.value < other.value
@@ -23,18 +24,25 @@ def get_words(words_path: str) -> List[str]:
 
 
 def check_guess(guessed: str, target: str) -> List[LetterResult]:
-    # First mark every correct letter as GREEN. The rest gets the default: GREY.
-    guess_result = [LetterResult.GREEN if target[i] == guessed[i] else LetterResult.GREY for i in range(5)]
+    # First mark every correct letter as GREEN.
+    # The rest gets the default: GREY.
+    guess_result = [
+        LetterResult.GREEN if target[i] == guessed[i] else LetterResult.GREY
+        for i in range(5)
+    ]
     yellowed = []
     # We then take the indices of all GREY letters and iterate over those.
-    ind_grey_letters = [i for i in range(5) if guess_result[i] == LetterResult.GREY]
+    ind_grey_letters = [
+        i for i in range(5) if guess_result[i] == LetterResult.GREY
+    ]
     for ind in ind_grey_letters:
-        # Now we check if the current GREY letter occurs in any position of the target word
-        # that has not yet been YELLOWed.
+        # Now we check if the current GREY letter occurs
+        # in any position of the target word that has not yet been YELLOWed.
         rest = [i for i in ind_grey_letters if i != ind and i not in yellowed]
         result = [i for i in rest if guessed[ind] == target[i]]
         # If this is the case, we mark the current GREY letter as YELLOW
-        # and mark the first of the occurrences of this letter as YELLOWed for further checking.
+        # and mark the first of the occurrences of this letter as YELLOWed
+        # for further checking.
         if len(result) > 0:
             guess_result[ind] = LetterResult.YELLOW
             yellowed.append(result[0])
@@ -59,15 +67,18 @@ def get_guess_result_str(guess_result: List[LetterResult]):
 
 def get_args() -> Namespace:
     parser = ArgumentParser()
-    parser.add_argument("-w", "--wordfile", type=str, nargs="?", default="valid_words.json", 
-        help="Path to the JSON file containing a list of words to be used.")
+    parser.add_argument("-w", "--wordfile", type=str, nargs="?",
+                        default="valid_words.json",
+                        help="Path to the JSON file containing \
+                              a list of words to be used.")
     return parser.parse_args()
 
 
 class Game:
     guess_limit = 6
 
-    def __init__(self, words_path = "valid_words.json", words: List[str] = None, interactive: bool = False) -> None:
+    def __init__(self, words_path="valid_words.json",
+                 words: List[str] = None, interactive: bool = False) -> None:
         self.words = words if words is not None else get_words(words_path)
         self.target = random.choice(self.words)
         self.valid_words = get_words("valid_words.json")
@@ -85,7 +96,7 @@ class Game:
             print("You won! :)")
         else:
             print("You lost! :(")
-        
+
     def guess(self, word: str) -> List[LetterResult]:
         if not self.active:
             self.game_over()
