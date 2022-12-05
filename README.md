@@ -1,5 +1,7 @@
 # Wordle Solver
 
+![Lint and Test](https://github.com/pkemkes/wordle-solver/actions/workflows/lint-and-test.yml/badge.svg)
+
 This repository contains the following implementations:
 
 - `wordle.py`: A custom version of the Wordle game. Can either be played interactively on the CLI, or automated as a library.
