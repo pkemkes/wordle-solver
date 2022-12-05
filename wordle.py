@@ -27,14 +27,11 @@ def check_guess(guessed: str, target: str) -> List[LetterResult]:
     # First mark every correct letter as GREEN.
     # The rest gets the default: GREY.
     guess_result = [
-        LetterResult.GREEN if target[i] == guessed[i] else LetterResult.GREY
-        for i in range(5)
+        LetterResult.GREEN if target[i] == guessed[i] else LetterResult.GREY for i in range(5)
     ]
     yellowed = []
     # We then take the indices of all GREY letters and iterate over those.
-    ind_grey_letters = [
-        i for i in range(5) if guess_result[i] == LetterResult.GREY
-    ]
+    ind_grey_letters = [i for i in range(5) if guess_result[i] == LetterResult.GREY]
     for ind in ind_grey_letters:
         # Now we check if the current GREY letter occurs
         # in any position of the target word that has not yet been YELLOWed.
@@ -67,10 +64,8 @@ def get_guess_result_str(guess_result: List[LetterResult]):
 
 def get_args() -> Namespace:
     parser = ArgumentParser()
-    parser.add_argument("-w", "--wordfile", type=str, nargs="?",
-                        default="valid_words.json",
-                        help="Path to the JSON file containing \
-                              a list of words to be used.")
+    parser.add_argument("-w", "--wordfile", type=str, nargs="?", default="valid_words.json",
+                        help="Path to the JSON file containing a list of words to be used.")
     return parser.parse_args()
 
 
@@ -87,7 +82,7 @@ class Game:
         self.interactive = interactive
         self.won = False
 
-    def play(self):
+    def play_interactively(self):
         while self.active:
             user_guess = input("Your guess: ")
             result = self.guess(user_guess)
@@ -127,7 +122,7 @@ class Game:
 def main():
     args = get_args()
     g = Game(args.wordfile, interactive=True)
-    g.play()
+    g.play_interactively()
 
 
 if __name__ == "__main__":

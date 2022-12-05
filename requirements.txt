@@ -1,2 +1,5 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+
 flake8
 pytest
+torch

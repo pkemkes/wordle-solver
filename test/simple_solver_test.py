@@ -14,10 +14,8 @@ class TestSimpleSolver(unittest.TestCase):
         "abcde"
     ]
     guess_result_cases = [
-        [LetterResult.GREEN, LetterResult.GREEN, LetterResult.GREY,
-         LetterResult.GREY, LetterResult.GREEN],
-        [LetterResult.GREEN, LetterResult.GREY, LetterResult.GREEN,
-         LetterResult.YELLOW, LetterResult.GREY]
+        [LetterResult.GREEN, LetterResult.GREEN, LetterResult.GREY, LetterResult.GREY, LetterResult.GREEN],
+        [LetterResult.GREEN, LetterResult.GREY, LetterResult.GREEN, LetterResult.YELLOW, LetterResult.GREY]
     ]
     expected_cases = [
         ["aaaaa"],
@@ -25,9 +23,8 @@ class TestSimpleSolver(unittest.TestCase):
     ]
 
     def test_remove_words(self):
-        for i, (words, guess, guess_result, expected) in enumerate(
-            zip(self.words_cases, self.guess_cases, self.guess_result_cases,
-                self.expected_cases)):
+        cases = zip(self.words_cases, self.guess_cases, self.guess_result_cases, self.expected_cases)
+        for i, (words, guess, guess_result, expected) in enumerate(cases):
             with self.subTest(i=i):
                 actual = remove_words(words, guess, guess_result)
                 self.assertSequenceEqual(expected, actual)
@@ -36,10 +33,8 @@ class TestSimpleSolver(unittest.TestCase):
         words = ["abcde", "aaaaa", "aabbd"]
         guesses = ["fgcdd", "bjufd"]
         results = [
-            [LetterResult.GREY, LetterResult.GREY, LetterResult.GREY,
-             LetterResult.GREY, LetterResult.GREEN],
-            [LetterResult.YELLOW, LetterResult.GREY, LetterResult.GREY,
-             LetterResult.GREY, LetterResult.GREEN]
+            [LetterResult.GREY, LetterResult.GREY, LetterResult.GREY, LetterResult.GREY, LetterResult.GREEN],
+            [LetterResult.YELLOW, LetterResult.GREY, LetterResult.GREY, LetterResult.GREY, LetterResult.GREEN]
         ]
         expected = ["aabbd"]
 
@@ -51,12 +46,9 @@ class TestSimpleSolver(unittest.TestCase):
         words = ["koori", "liane", "sieth", "eight"]
         guesses = ["koori", "liane", "sieth"]
         results = [
-            [LetterResult.GREY, LetterResult.GREY, LetterResult.GREY,
-             LetterResult.GREY, LetterResult.YELLOW],
-            [LetterResult.GREY, LetterResult.GREEN, LetterResult.GREY,
-             LetterResult.GREY, LetterResult.YELLOW],
-            [LetterResult.GREY, LetterResult.GREEN, LetterResult.YELLOW,
-             LetterResult.YELLOW, LetterResult.YELLOW]
+            [LetterResult.GREY, LetterResult.GREY, LetterResult.GREY, LetterResult.GREY, LetterResult.YELLOW],
+            [LetterResult.GREY, LetterResult.GREEN, LetterResult.GREY, LetterResult.GREY, LetterResult.YELLOW],
+            [LetterResult.GREY, LetterResult.GREEN, LetterResult.YELLOW, LetterResult.YELLOW, LetterResult.YELLOW]
         ]
         expected = ["eight"]
 

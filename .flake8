@@ -1,0 +1,10 @@
+[flake8]
+count = True
+exclude =
+    .flake8
+    venv
+    __pycache__
+show-source = True
+statistics = True
+max-complexity = 10
+max-line-length = 127
